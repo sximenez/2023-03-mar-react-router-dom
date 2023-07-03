@@ -23,7 +23,7 @@ import "./index.css";
 
 const router = createBrowserRouter([
   {
-    path: "/2023-03-mar-react-router-dom/",
+    path: "/2023-03-mar-react-router-dom",
     element: <Root />,
     errorElement: <ErrorPage />,
     loader: rootLoader,
@@ -34,19 +34,19 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Index /> },
           {
-            path: "contacts/:contactId",
+            path: "2023-03-mar-react-router-dom/contacts/:contactId",
             element: <Contact />,
             loader: conctactLoader,
             action: contactAction,
           },
           {
-            path: "contacts/:contactId/edit",
+            path: "2023-03-mar-react-router-dom/contacts/:contactId/edit",
             element: <EditContact />,
             loader: conctactLoader,
             action: editAction,
           },
           {
-            path: "contacts/:contactId/destroy",
+            path: "2023-03-mar-react-router-dom/contacts/:contactId/destroy",
             action: destroyAction,
           },
         ],
