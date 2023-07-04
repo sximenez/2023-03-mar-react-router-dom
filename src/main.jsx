@@ -9,7 +9,7 @@ import Root, {
 } from "./routes/root";
 
 import Contact, {
-  loader as conctactLoader,
+  loader as contactLoader,
   action as contactAction,
 } from "./routes/contact";
 
@@ -23,7 +23,7 @@ import "./index.css";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/2023-03-mar-react-router-dom/",
     element: <Root />,
     errorElement: <ErrorPage />,
     loader: rootLoader,
@@ -36,13 +36,13 @@ const router = createBrowserRouter([
           {
             path: "contacts/:contactId",
             element: <Contact />,
-            loader: conctactLoader,
+            loader: contactLoader,
             action: contactAction,
           },
           {
             path: "contacts/:contactId/edit",
             element: <EditContact />,
-            loader: conctactLoader,
+            loader: contactLoader,
             action: editAction,
           },
           {

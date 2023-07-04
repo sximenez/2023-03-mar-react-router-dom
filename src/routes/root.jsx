@@ -1,6 +1,15 @@
 import { useEffect } from "react";
 
-import { Link, Outlet, useLoaderData, Form, redirect, NavLink, useNavigation, useSubmit } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLoaderData,
+  Form,
+  redirect,
+  NavLink,
+  useNavigation,
+  useSubmit,
+} from "react-router-dom";
 import { getContacts, createContact } from "../contacts";
 
 export async function loader({ request }) {
@@ -12,21 +21,17 @@ export async function loader({ request }) {
 
 export async function action() {
   const contact = await createContact();
-  return redirect(`/contacts/${contact.id}/edit`);
+  return redirect(`contacts/${contact.id}/edit`);
 }
 
 export default function Root() {
-  
   const { contacts, q } = useLoaderData();
   const navigation = useNavigation();
   const submit = useSubmit();
 
   const searching =
     navigation.location &&
-    new URLSearchParams(navigation.location.search).has(
-      "q"
-    );
-
+    new URLSearchParams(navigation.location.search).has("q");
 
   useEffect(() => {
     document.getElementById("q").value = q;
@@ -53,15 +58,8 @@ export default function Root() {
                 });
               }}
             />
-            <div
-              id="search-spinner"
-              aria-hidden
-              hidden={!searching}
-            />
-            <div
-              className="sr-only"
-              aria-live="polite"
-            ></div>
+            <div id="search-spinner" aria-hidden hidden={!searching} />
+            <div className="sr-only" aria-live="polite"></div>
           </Form>
           <Form method="post">
             <button type="submit">New</button>
@@ -75,11 +73,7 @@ export default function Root() {
                   <NavLink
                     to={`contacts/${contact.id}`}
                     className={({ isActive, isPending }) =>
-                      isActive
-                        ? "active"
-                        : isPending
-                          ? "pending"
-                          : ""
+                      isActive ? "active" : isPending ? "pending" : ""
                     }
                   >
                     <Link to={`contacts/${contact.id}`}>
@@ -105,9 +99,8 @@ export default function Root() {
       </div>
       <div
         id="detail"
-        className={
-          navigation.state === "loading" ? "loading" : ""
-        }>
+        className={navigation.state === "loading" ? "loading" : ""}
+      >
         <Outlet />
       </div>
     </>
