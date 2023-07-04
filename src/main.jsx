@@ -34,19 +34,19 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Index /> },
           {
-            path: "2023-03-mar-react-router-dom/contacts/:contactId",
+            path: "/contacts/:contactId",
             element: <Contact />,
             loader: conctactLoader,
             action: contactAction,
           },
           {
-            path: "2023-03-mar-react-router-dom/contacts/:contactId/edit",
+            path: "/contacts/:contactId/edit",
             element: <EditContact />,
             loader: conctactLoader,
             action: editAction,
           },
           {
-            path: "2023-03-mar-react-router-dom/contacts/:contactId/destroy",
+            path: "/contacts/:contactId/destroy",
             action: destroyAction,
           },
         ],
