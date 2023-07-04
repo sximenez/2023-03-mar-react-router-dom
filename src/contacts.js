@@ -2,10 +2,25 @@ import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
 
+const fakeEntry = {
+  avatar:
+    "https://avatars.githubusercontent.com/u/70152164?s=400&u=3b9fcf4978e611ab0a07514e31e8d3357c784dd6&v=4",
+  createdAt: Date.now(),
+  first: "Steven",
+  id: Math.random().toString(36).substring(2, 9),
+  last: "Jiménez",
+  notes: "",
+  twitter: "",
+};
+
 export async function getContacts(query) {
   await fakeNetwork(`getContacts:${query}`);
   let contacts = await localforage.getItem("contacts");
-  if (!contacts) contacts = [];
+  if (!contacts) {
+    contacts = [];
+    contacts.push(fakeEntry);
+  }
+
   if (query) {
     contacts = matchSorter(contacts, query, { keys: ["first", "last"] });
   }
@@ -25,14 +40,14 @@ export async function createContact() {
 export async function getContact(id) {
   await fakeNetwork(`contact:${id}`);
   let contacts = await localforage.getItem("contacts");
-  let contact = contacts.find(contact => contact.id === id);
+  let contact = contacts.find((contact) => contact.id === id);
   return contact ?? null;
 }
 
 export async function updateContact(id, updates) {
   await fakeNetwork();
   let contacts = await localforage.getItem("contacts");
-  let contact = contacts.find(contact => contact.id === id);
+  let contact = contacts.find((contact) => contact.id === id);
   if (!contact) throw new Error("No contact found for", id);
   Object.assign(contact, updates);
   await set(contacts);
@@ -41,7 +56,7 @@ export async function updateContact(id, updates) {
 
 export async function deleteContact(id) {
   let contacts = await localforage.getItem("contacts");
-  let index = contacts.findIndex(contact => contact.id === id);
+  let index = contacts.findIndex((contact) => contact.id === id);
   if (index > -1) {
     contacts.splice(index, 1);
     await set(contacts);
@@ -67,7 +82,7 @@ async function fakeNetwork(key) {
   }
 
   fakeCache[key] = true;
-  return new Promise(res => {
+  return new Promise((res) => {
     setTimeout(res, Math.random() * 800);
   });
 }
